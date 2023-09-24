@@ -26,7 +26,7 @@ Router.get("/signup", function(req,res) {
     if(Object.keys(req.query).length === 0) {
         res.statusMessage = "No information provided";
         res.status(400).end()
-    } else if(req.query.username && req.query.password && req.query.major && req.query.school && req.query.year) {
+    } else if(req.query.username && req.query.password && req.query.major && req.query.year) {
         let username = req.query.username;
         let password = req.query.password;
 
@@ -45,14 +45,13 @@ Router.get("/signup", function(req,res) {
                         Name: "John Doe",
                         Bio: "I am John Doe",
                         Major: req.query.major,
-                        School: req.query.school.toLocaleUpperCase(),
                         Year: req.query.year,
                         JoinDate: Date.now(),
                         Friends: []
                     })
                 }).then(function(e) {
                     console.log(e)
-                    res.status(200).end()
+                    res.json({"Redirect": "/login"})
                 }).catch(function(error) {
                     res.status(500).end()
                 })
@@ -105,14 +104,14 @@ Router.get("/login", function(req,res) {
                                 } 
         
                                 Session.create({Username: found.Username, sessionID: sessionID}).then(function() {
-                                    res.json({"message": "Login succesful"});
+                                    res.json({"message": "Login succesful", "Redirect": "/"});
                                 }).catch(function(error) {
                                     console.log(error)
                                     res.statusMessage = "SESSION CREATION FAILED";
                                     res.status(500).end()
                                 })
                             } else if(isCorrect) {
-                                res.json({"redirect": "/"})
+                                res.json({"Redirect": "/"})
                             } else {
                                 console.log("Not Found")
                                 res.statusMessage = "Login failed";
