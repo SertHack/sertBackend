@@ -154,5 +154,13 @@ Router.get("/test", function(req,res) {
     }
 })
 
+Router.get('/user', function(req,res) {
+    if (Object.keys(req.session).length === 0) {
+        res.status(500).json({"Message": "Please login at /login"});
+    } else {
+        console.log(req.session.profile);
+        res.status(200).json(req.session.profile);
+    }
+});
 
 module.exports = Router;
