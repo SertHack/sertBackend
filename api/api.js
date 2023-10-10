@@ -12,7 +12,7 @@ var User = require("../schema/users")
 var Session = require("../schema/session")
 
 
-mongoose.connect('mongodb+srv://Admin:rRmlCfHM17x0cinp@cluster0.59duthc.mongodb.net/sert?retryWrites=true&w=majority').then(() => console.log('Connected to MongoDB!'));
+mongoose.connect(/* MONGDB URI HERE*/).then(() => console.log('Connected to MongoDB!'));
 
 Router.use(queryParser({
     parseNull: true,
